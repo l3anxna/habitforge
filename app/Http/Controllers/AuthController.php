@@ -20,7 +20,13 @@ class AuthController extends Controller
     {
         $email = $request->email;
 
-        return view('auth.login', ['message' => 'Login attempt for ' . $email]);
+        if ($email == 'admin@mail.com') {
+            session(['role' => 'admin']);
+            return redirect()->route('admin.dashboard');
+        }
+
+        session(['role' => 'user']);
+        return redirect('/dashboard');
     }
 
     public function register(Request $request)
