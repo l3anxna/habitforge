@@ -11,6 +11,9 @@ use App\Http\Controllers\UserController;
  */
 Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
 
+Route::view('/about', 'about')->name('about');
+Route::view('/license', 'license')->name('license');
+
 /*
  * Authentication routes
  */
