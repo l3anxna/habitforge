@@ -35,4 +35,10 @@ class AuthController extends Controller
 
         return view('auth.register', ['message' => 'Registered user: ' . $name]);
     }
+
+    public function logout()
+    {
+        session()->flush();
+        return redirect('/');
+    }
 }
