@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 
 /*
  * Public routes
@@ -22,6 +23,7 @@ Route::post('register', [AuthController::class, 'register'])->name('register.sub
 /*
  * Users routes
  */
+Route::get('/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
 
  /*
  * Admin routes
