@@ -1,8 +1,10 @@
-<html>
-<head>
-    <title>Manage Users</title>
-</head>
-<body>
+@extends('layouts.footer')
+
+@section('title')
+Manage Users
+@endsection
+
+@section('content')
 
 <h1>Manage Users</h1>
 
@@ -17,4 +19,5 @@
 <a href="{{ route('admin.dashboard') }}">Back to Dashboard</a>
 
 </body>
-</html>
+
+@endsection

@@ -1,8 +1,10 @@
-<html>
-<head>
-    <title>User Dashboard</title>
-</head>
-<body>
+@extends('layouts.footer')
+
+@section('title')
+User Dashboard
+@endsection
+
+@section('content')
 
 <h1>User Dashboard</h1>
 
@@ -35,5 +37,4 @@
 
 <a href="/">Back Home</a>
 
-</body>
-</html>
+@endsection

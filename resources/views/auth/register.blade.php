@@ -1,9 +1,10 @@
-<html>
-<head>
-    <title>Register</title>
-</head>
-<body>
+@extends('layouts.footer')
 
+@section('title')
+Register
+@endsection
+
+@section('content')
 <h1>Register</h1>
 
 @if(isset($message))
@@ -32,4 +33,4 @@
 <a href="{{ route('login') }}">Go to Login</a>
 
 </body>
-</html>
+@endsection

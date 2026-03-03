@@ -1,8 +1,10 @@
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
+@extends('layouts.footer')
+
+@section('title')
+Login
+@endsection
+
+@section('content')
 
 <h1>Login</h1>
 
@@ -27,5 +29,4 @@
 <br>
 <a href="{{ route('register') }}">Go to Register</a>
 
-</body>
-</html>
+@endsection

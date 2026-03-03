@@ -1,8 +1,10 @@
-<html>
-<head>
-    <title>Admin Dashboard</title>
-</head>
-<body>
+@extends('layouts.footer')
+
+@section('title')
+Admin Dashboard
+@endsection
+
+@section('content')
 
 <h1>Admin Dashboard</h1>
 
@@ -14,4 +16,5 @@
 <a href="{{ route('admin.users') }}">Manage Users</a>
 
 </body>
-</html>
+
+@endsection
