@@ -1,4 +1,4 @@
-@extends('layouts.footer')
+@extends('layouts.app')
 
 @section('title')
 About Us

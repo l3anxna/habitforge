@@ -1,4 +1,4 @@
-@extends('layouts.footer')
+@extends('layouts.app')
 
 @section('title')
 Manage Users
@@ -13,11 +13,5 @@ Manage Users
         <li>{{ $user }}</li>
     @endforeach
 </ul>
-
-<br>
-
-<a href="{{ route('admin.dashboard') }}">Back to Dashboard</a>
-
-</body>
 
 @endsection
