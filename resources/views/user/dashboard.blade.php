@@ -19,9 +19,14 @@
             <br>
             Status:
             @if($habit['completed'])
-                Completed 
+                Completed ✅
             @else
-                Not Completed 
+                Not Completed ❌
+
+                <form method="POST" action="{{ route('habit.checkin', $habit['name']) }}">
+                    @csrf
+                    <button type="submit">Daily Check-in</button>
+                </form>
             @endif
             <br><br>
         </li>

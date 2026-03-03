@@ -24,6 +24,7 @@ Route::post('register', [AuthController::class, 'register'])->name('register.sub
  * Users routes
  */
 Route::get('/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
+Route::post('/checkin/{habit}', [UserController::class, 'checkin'])->name('habit.checkin');
 
  /*
  * Admin routes

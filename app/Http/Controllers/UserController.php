@@ -13,28 +13,39 @@ class UserController extends Controller
         }
 
         $habits = [
-            [
-                'name' => 'Drink Water',
-                'streak' => 5,
-                'completed' => true
-            ],
-            [
-                'name' => 'Exercise',
-                'streak' => 3,
-                'completed' => false
-            ],
-            [
-                'name' => 'Read Book',
-                'streak' => 7,
-                'completed' => true
-            ]
+            'Drink Water' => 5,
+            'Exercise' => 3,
+            'Read Book' => 7
         ];
-
+        
+        $habitData = [];
+        
+        foreach ($habits as $name => $streak) {
+            $completed = session('checked_' . $name, false);
+        
+            $habitData[] = [
+                'name' => $name,
+                'streak' => $streak,
+                'completed' => $completed
+            ];
+        }
+        
         $completionRate = 66;
-
+        
         return view('user.dashboard', [
-            'habits' => $habits,
+            'habits' => $habitData,
             'completionRate' => $completionRate
         ]);
+    }
+
+    public function checkin($habitName)
+    {
+        if (session('role') != 'user') {
+            return redirect('/login');
+        }
+
+        session(['checked_' . $habitName => true]);
+
+        return redirect()->route('user.dashboard');
     }
 }
