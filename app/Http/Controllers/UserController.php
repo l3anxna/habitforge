@@ -128,4 +128,26 @@ class UserController extends Controller
             'streak' => $streak
         ]);
     }
+
+    public function deleteHabit($habitName)
+    {
+        if (session('role') != 'user') {
+            return redirect('/login');
+        }
+
+        $habits = session('habits', []);
+
+        $updatedHabits = array_filter($habits, function ($habit) use ($habitName) {
+            return $habit != $habitName;
+        });
+
+        $updatedHabits = array_values($updatedHabits);
+
+        session(['habits' => $updatedHabits]);
+
+        session()->forget('streak_' . $habitName);
+        session()->forget('checked_' . $habitName);
+
+        return redirect()->route('user.habits');
+    }
 }

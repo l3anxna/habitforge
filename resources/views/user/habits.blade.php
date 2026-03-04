@@ -14,6 +14,13 @@ Habits List
             {{ $habit }}
             <a href="{{ route('user.habit.details', $habit) }}">View</a>
             <a href="{{ route('user.habit.edit', $habit) }}">Edit</a>
+
+            <form method="POST"
+                action="{{ route('user.habit.delete', $habit) }}"
+                style="display:inline;">
+                @csrf
+                <button type="submit">Delete</button>
+            </form>
         </li>
     @endforeach
 </ul>
