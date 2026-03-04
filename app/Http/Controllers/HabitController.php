@@ -11,12 +11,12 @@ class HabitController extends Controller
     {
         $habits = auth()->user()->habits;
 
-        return view('habits.index', compact('habits'));
+        return view('user.habits.index', compact('habits'));
     }
 
     public function create()
     {
-        return view('habits.create');
+        return view('user.habits.create');
     }
 
     public function store(Request $request)
