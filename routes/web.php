@@ -42,6 +42,8 @@ Route::post('/habits/delete/{habit}', [UserController::class, 'deleteHabit'])->n
 Route::resource('habits', HabitController::class);
 Route::post('/habits/{habit}/checkin', [HabitController::class, 'checkin'])->name('habits.checkin');
 
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
  /*
  * Admin routes
  */
