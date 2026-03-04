@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HabitController;
 
 /*
  * Public routes
@@ -37,6 +38,8 @@ Route::get('/habits/edit/{habit}', [UserController::class, 'editHabit'])->name('
 Route::post('/habits/update', [UserController::class, 'updateHabit'])->name('user.habit.update');
 Route::get('/habits/{habit}', [UserController::class, 'habitDetails'])->name('user.habit.details');
 Route::post('/habits/delete/{habit}', [UserController::class, 'deleteHabit'])->name('user.habit.delete');
+
+Route::resource('habits', HabitController::class);
 
  /*
  * Admin routes
