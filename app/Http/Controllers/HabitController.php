@@ -38,4 +38,19 @@ class HabitController extends Controller
 
         return redirect()->route('habits.index');
     }
+
+    public function checkin(Habit $habit)
+    {
+        $alreadyChecked = $habit->checkins()
+            ->whereDate('checked_at', today())
+            ->exists();
+
+        if (!$alreadyChecked) {
+            $habit->checkins()->create([
+                'checked_at' => today()
+            ]);
+        }
+
+        return redirect()->route('habits.index');
+    }
 }
