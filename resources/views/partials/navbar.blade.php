@@ -1,23 +1,32 @@
-<div style="padding:10px; background-color:#f2f2f2;">
-    <a href="/">Home</a> |
+<div style="padding:12px 20px; background-color:#f8f9fa; display:flex; justify-content:space-between; align-items:center; font-family:Arial, sans-serif;">
 
-    @if(session('role') == 'user')
-        <a href="{{ route('user.dashboard') }}">Dashboard</a> |
-        <a href="{{ route('user.habits') }}">My Habits</a> |
-    @endif
+    <div>
+        <a href="{{ route('home') }}" style="margin-right:15px; text-decoration:none;">Home</a>
 
-    @if(session('role') == 'admin')
-        <a href="{{ route('admin.dashboard') }}">Admin Dashboard</a> |
-        <a href="{{ route('admin.users') }}">Manage Users</a> |
-    @endif
+        @auth
+            <a href="{{ route('dashboard') }}" style="margin-right:15px; text-decoration:none;">Dashboard</a>
+            <a href="{{ route('habits.index') }}" style="margin-right:15px; text-decoration:none;">My Habits</a>
+        @endauth
+    </div>
 
-    @if(session('role'))
-        <form method="POST" action="{{ route('logout') }}" style="display:inline;">
-            @csrf
-            <button type="submit">Logout</button>
-        </form>
-    @else
-        <a href="{{ route('login') }}">Login</a> |
-        <a href="{{ route('register') }}">Register</a>
-    @endif
+    <div>
+        @auth
+            <span style="margin-right:15px;">
+                Hello, {{ auth()->user()->name }}
+            </span>
+
+            <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                @csrf
+                <button type="submit" style="padding:6px 10px; cursor:pointer;">
+                    Logout
+                </button>
+            </form>
+        @endauth
+
+        @guest
+            <a href="{{ route('login') }}" style="margin-right:15px; text-decoration:none;">Login</a>
+            <a href="{{ route('register') }}" style="text-decoration:none;">Register</a>
+        @endguest
+    </div>
+
 </div>

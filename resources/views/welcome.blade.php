@@ -1,47 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>HabitForge</title>
-</head>
+@extends('layouts.app')
 
-<body style="
-    margin:0;
-    height:100vh;
+@section('title', 'Welcome')
+
+@section('content')
+<div style="
+    height:80vh;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    background-color:#f5f5f5;
+    text-align:center;
     font-family:Arial, sans-serif;
 ">
 
-    <div style="
-        position:absolute;
-        top:20px;
-        right:30px;
-    ">
-        @if (Route::has('login'))
-            @auth
-                <a href="{{ url('/dashboard') }}" style="margin-right:15px;">Dashboard</a>
-            @else
-                <a href="{{ route('login') }}" style="margin-right:15px;">Login</a>
+    <h1 style="font-size:42px; margin-bottom:10px;">
+        Welcome to HabitForge
+    </h1>
 
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}">Register</a>
-                @endif
-            @endauth
-        @endif
-    </div>
+    <p style="font-size:18px; margin-bottom:30px; color:#555;">
+        Build better habits. Track your progress. Stay consistent.
+    </p>
 
-    <img src="{{ asset('images/habitforge-hero.png') }}"
-         alt="HabitForge Illustration"
-         style="
-            max-width:80%;
-            max-height:80vh;
-            object-fit:contain;
-            border-radius:20px;
-            box-shadow:0 20px 40px rgba(0,0,0,0.2);
-         ">
+    @guest
+        <div>
+            <a href="{{ route('register') }}"
+               style="margin-right:15px; padding:10px 20px; background:#4CAF50; color:white; text-decoration:none; border-radius:6px;">
+                Get Started
+            </a>
 
-</body>
-</html>
+            <a href="{{ route('login') }}"
+               style="padding:10px 20px; background:#333; color:white; text-decoration:none; border-radius:6px;">
+                Login
+            </a>
+        </div>
+    @endguest
+
+    @auth
+        <a href="{{ route('dashboard') }}"
+           style="padding:12px 24px; background:#4CAF50; color:white; text-decoration:none; border-radius:6px; margin-top:20px;">
+            Go to Dashboard
+        </a>
+    @endauth
+
+</div>
+@endsection
