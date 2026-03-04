@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -18,27 +21,39 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $email = $request->email;
+        $credentials = $request->only('email', 'password');
 
-        if ($email == 'admin@mail.com') {
-            session(['role' => 'admin']);
-            return redirect()->route('admin.dashboard');
+        if (Auth::attempt($credentials)) {
+            return redirect()->route('dashboard');
         }
 
-        session(['role' => 'user']);
-        return redirect('/dashboard');
+        return back()->withErrors([
+            'email' => 'Invalid credentials'
+        ]);
     }
 
     public function register(Request $request)
     {
-        $name = $request->name;
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6'
+        ]);
 
-        return view('auth.register', ['message' => 'Registered user: ' . $name]);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        Auth::login($user);
+
+        return redirect()->route('dashboard');
     }
 
     public function logout()
     {
-        session()->flush();
+        Auth::logout();
         return redirect('/');
     }
 }

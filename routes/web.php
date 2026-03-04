@@ -29,13 +29,16 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 /*
  * Users routes
  */
-Route::resource('habits', HabitController::class);
-Route::post('/habits/{habit}/checkin', [HabitController::class, 'checkin'])->name('habits.checkin');
+Route::middleware('auth')->group(function () {
+    Route::resource('habits', HabitController::class);
+    Route::post('/habits/{habit}/checkin',[HabitController::class, 'checkin'])->name('habits.checkin');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
  /*
  * Admin routes
  */
-Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-Route::get('admin/users', [AdminController::class, 'users'])->name('admin.users');
+Route::middleware('auth')->group(function () {
+    Route::get('admin/dashboard',[AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('admin/users',[AdminController::class, 'users'])->name('admin.users');
+});

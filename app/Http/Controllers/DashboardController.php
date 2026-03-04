@@ -8,8 +8,22 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $habits = auth()->user()->habits()->with('checkins')->get();
+        $user = auth()->user();
 
-        return view('dashboard', compact('habits'));
+        $habits = $user->habits()
+            ->with('checkins')
+            ->get();
+
+        $totalHabits = $habits->count();
+
+        $totalCheckins = $habits->sum(function ($habit) {
+            return $habit->checkins->count();
+        });
+
+        return view('user/dashboard', compact(
+            'habits',
+            'totalHabits',
+            'totalCheckins'
+        ));
     }
 }
