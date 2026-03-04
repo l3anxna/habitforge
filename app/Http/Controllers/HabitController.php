@@ -2,63 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Habit;
 use Illuminate\Http\Request;
 
 class HabitController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $habits = auth()->user()->habits;
+
+        return view('habits.index', compact('habits'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('habits.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:50'
+        ]);
+
+        auth()->user()->habits()->create([
+            'name' => $request->name
+        ]);
+
+        return redirect()->route('habits.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function destroy(Habit $habit)
     {
-        //
-    }
+        $habit->delete();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('habits.index');
     }
 }
