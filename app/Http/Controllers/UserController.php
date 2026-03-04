@@ -12,26 +12,44 @@ class UserController extends Controller
             return redirect('/login');
         }
 
-        $habits = [
-            'Drink Water' => 5,
-            'Exercise' => 3,
-            'Read Book' => 7
-        ];
-        
+        if (!session()->has('habits')) {
+            session([
+                'habits' => [
+                    'Drink Water',
+                    'Exercise',
+                    'Read Book'
+                ]
+            ]);
+        }
+
+        $habitNames = session('habits');
         $habitData = [];
-        
-        foreach ($habits as $name => $streak) {
+
+        foreach ($habitNames as $name) {
+
+            $streak = session('streak_' . $name, 0);
             $completed = session('checked_' . $name, false);
-        
+
             $habitData[] = [
                 'name' => $name,
                 'streak' => $streak,
                 'completed' => $completed
             ];
         }
-        
-        $completionRate = 66;
-        
+
+        $total = count($habitData);
+        $completedCount = 0;
+
+        foreach ($habitData as $habit) {
+            if ($habit['completed']) {
+                $completedCount++;
+            }
+        }
+
+        $completionRate = $total > 0
+            ? round(($completedCount / $total) * 100)
+            : 0;
+
         return view('user.dashboard', [
             'habits' => $habitData,
             'completionRate' => $completionRate
@@ -45,6 +63,7 @@ class UserController extends Controller
         }
 
         session(['checked_' . $habitName => true]);
+        session()->increment('streak_' . $habitName);
 
         return redirect()->route('user.dashboard');
     }
@@ -55,12 +74,38 @@ class UserController extends Controller
             return redirect('/login');
         }
 
-        $habits = [
+        $defaultHabits = [
             'Drink Water',
             'Exercise',
             'Read Book'
         ];
 
+        if (!session()->has('habits')) {
+            session(['habits' => $defaultHabits]);
+        }
+
+        $habits = session('habits');
+
         return view('user.habits', ['habits' => $habits]);
+    }
+
+    public function createHabit()
+    {
+        if (session('role') != 'user') {
+            return redirect('/login');
+        }
+
+        return view('user.create');
+    }
+
+    public function storeHabit(Request $request)
+    {
+        $habitName = $request->habit;
+
+        if ($habitName) {
+            session()->push('habits', $habitName);
+        }
+
+        return redirect()->route('user.habits');
     }
 }

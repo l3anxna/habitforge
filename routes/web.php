@@ -31,6 +31,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
 Route::post('/checkin/{habit}', [UserController::class, 'checkin'])->name('habit.checkin');
 Route::get('/habits', [UserController::class, 'habits'])->name('user.habits');
+Route::get('/habits/create', [UserController::class, 'createHabit'])->name('user.habit.create');
+Route::post('/habits/store', [UserController::class, 'storeHabit'])->name('user.habit.store');
 
  /*
  * Admin routes

@@ -17,4 +17,6 @@ Habits List
     @endforeach
 </ul>
 
+<a href="{{ route('user.habit.create') }}">Create New Habit</a>
+
 @endsection
