@@ -118,4 +118,14 @@ class UserController extends Controller
     {
         return redirect()->route('user.habits');
     }
+
+    public function habitDetails($habit)
+    {
+        $streak = 5;
+
+        return view('user.details', [
+            'habit' => $habit,
+            'streak' => $streak
+        ]);
+    }
 }

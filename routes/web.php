@@ -35,6 +35,7 @@ Route::get('/habits/create', [UserController::class, 'createHabit'])->name('user
 Route::post('/habits/store', [UserController::class, 'storeHabit'])->name('user.habit.store');
 Route::get('/habits/edit/{habit}', [UserController::class, 'editHabit'])->name('user.habit.edit');
 Route::post('/habits/update', [UserController::class, 'updateHabit'])->name('user.habit.update');
+Route::get('/habits/{habit}', [UserController::class, 'habitDetails'])->name('user.habit.details');
 
  /*
  * Admin routes
