@@ -29,16 +29,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 /*
  * Users routes
  */
-Route::get('/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
-Route::post('/checkin/{habit}', [UserController::class, 'checkin'])->name('habit.checkin');
-Route::get('/habits', [UserController::class, 'habits'])->name('user.habits');
-Route::get('/habits/create', [UserController::class, 'createHabit'])->name('user.habit.create');
-Route::post('/habits/store', [UserController::class, 'storeHabit'])->name('user.habit.store');
-Route::get('/habits/edit/{habit}', [UserController::class, 'editHabit'])->name('user.habit.edit');
-Route::post('/habits/update', [UserController::class, 'updateHabit'])->name('user.habit.update');
-Route::get('/habits/{habit}', [UserController::class, 'habitDetails'])->name('user.habit.details');
-Route::post('/habits/delete/{habit}', [UserController::class, 'deleteHabit'])->name('user.habit.delete');
-
 Route::resource('habits', HabitController::class);
 Route::post('/habits/{habit}/checkin', [HabitController::class, 'checkin'])->name('habits.checkin');
 
