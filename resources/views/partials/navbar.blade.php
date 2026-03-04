@@ -3,6 +3,7 @@
 
     @if(session('role') == 'user')
         <a href="{{ route('user.dashboard') }}">Dashboard</a> |
+        <a href="{{ route('user.habits') }}">My Habits</a> |
     @endif
 
     @if(session('role') == 'admin')

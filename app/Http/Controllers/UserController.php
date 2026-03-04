@@ -48,4 +48,19 @@ class UserController extends Controller
 
         return redirect()->route('user.dashboard');
     }
+
+    public function habits()
+    {
+        if (session('role') != 'user') {
+            return redirect('/login');
+        }
+
+        $habits = [
+            'Drink Water',
+            'Exercise',
+            'Read Book'
+        ];
+
+        return view('user.habits', ['habits' => $habits]);
+    }
 }
