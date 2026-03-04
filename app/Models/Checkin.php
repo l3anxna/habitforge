@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Checkin extends Model
 {
-    //
+    protected $fillable = ['habit_id', 'checked_at'];
+
+    public function habit()
+    {
+        return $this->belongsTo(Habit::class);
+    }
 }
