@@ -13,6 +13,7 @@ Habits List
         <li>
             {{ $habit }}
             <a href="{{ route('user.habits', $habit) }}">View</a>
+            <a href="{{ route('user.habit.edit', $habit) }}">Edit</a>
         </li>
     @endforeach
 </ul>

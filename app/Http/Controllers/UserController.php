@@ -108,4 +108,14 @@ class UserController extends Controller
 
         return redirect()->route('user.habits');
     }
+
+    public function editHabit($habit)
+    {
+        return view('user.edit', ['habit' => $habit]);
+    }
+
+    public function updateHabit(Request $request)
+    {
+        return redirect()->route('user.habits');
+    }
 }
