@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class DashboardController extends Controller
 {
     public function index()
@@ -20,10 +18,15 @@ class DashboardController extends Controller
             return $habit->checkins->count();
         });
 
-        return view('user/dashboard', compact(
+        $completionRate = $totalHabits > 0
+            ? round(($totalCheckins / $totalHabits) * 100)
+            : 0;
+
+        return view('user.dashboard', compact(
             'habits',
             'totalHabits',
-            'totalCheckins'
+            'totalCheckins',
+            'completionRate'
         ));
     }
 }

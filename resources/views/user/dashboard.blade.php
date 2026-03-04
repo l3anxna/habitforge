@@ -25,7 +25,7 @@ User Dashboard
             @else
                 Not Completed ❌
 
-                <form method="POST" action="{{ route('habit.checkin', $habit['name']) }}">
+                <form method="POST" action="{{ route('habits.checkin', $habit['name']) }}">
                     @csrf
                     <button type="submit">Daily Check-in</button>
                 </form>
