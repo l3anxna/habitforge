@@ -15,8 +15,19 @@ box-shadow:0 2px 10px rgba(0,0,0,0.05);
         </a>
 
         @auth
-            <a href="{{ route('dashboard') }}">Dashboard</a>
-            <a href="{{ route('habits.index') }}" style="margin-left:15px;">My Habits</a>
+
+            {{-- USER NAVBAR --}}
+            @if(auth()->user()->role === 'user')
+                <a href="{{ route('dashboard') }}">Dashboard</a>
+                <a href="{{ route('habits.index') }}" style="margin-left:15px;">My Habits</a>
+            @endif
+
+            {{-- ADMIN NAVBAR --}}
+            @if(auth()->user()->role === 'admin')
+                <a href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
+                <a href="{{ route('admin.users') }}" style="margin-left:15px;">Manage Users</a>
+            @endif
+
         @endauth
 
     </div>
@@ -28,10 +39,6 @@ box-shadow:0 2px 10px rgba(0,0,0,0.05);
             <span style="margin-right:15px;">
                 Hello, {{ auth()->user()->name }}
             </span>
-
-            @if (auth()->user()->role === 'admin')
-                <a href="{{ route('admin.dashboard') }}" style="margin-right:15px;">Admin</a>
-            @endif
 
             <form method="POST" action="{{ route('logout') }}" style="display:inline;">
                 @csrf
