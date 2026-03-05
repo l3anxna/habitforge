@@ -32,6 +32,33 @@ class HabitController extends Controller
         return redirect()->route('habits.index');
     }
 
+
+    public function edit(Habit $habit)
+    {
+        if ($habit->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        return view('user.habits.edit', compact('habit'));
+    }
+
+    public function update(Request $request, Habit $habit)
+    {
+        if ($habit->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $request->validate([
+            'name' => 'required|string|max:50'
+        ]);
+
+        $habit->update([
+            'name' => $request->name
+        ]);
+
+        return redirect()->route('habits.index');
+    }
+
     public function destroy(Habit $habit)
     {
         if ($habit->user_id !== auth()->id()) {

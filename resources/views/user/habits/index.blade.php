@@ -17,8 +17,6 @@
 
             <h3>{{ $habit->name }}</h3>
 
-            <a href="{{ route('habits.show', $habit->id) }}">View</a>
-
             <a href="{{ route('habits.edit', $habit->id) }}" style="margin-left:10px;">
                 Edit
             </a>
