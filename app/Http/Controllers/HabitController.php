@@ -26,7 +26,7 @@ class HabitController extends Controller
         ]);
 
         auth()->user()->habits()->create([
-            'name' => $request->name
+            'name' => $request->string('name')
         ]);
 
         return redirect()->route('habits.index');
@@ -34,6 +34,10 @@ class HabitController extends Controller
 
     public function destroy(Habit $habit)
     {
+        if ($habit->user_id !== auth()->id()) {
+            abort(403);
+        }
+
         $habit->delete();
 
         return redirect()->route('habits.index');
@@ -41,6 +45,10 @@ class HabitController extends Controller
 
     public function checkin(Habit $habit)
     {
+        if ($habit->user_id !== auth()->id()) {
+            abort(403);
+        }
+
         $alreadyChecked = $habit->checkins()
             ->whereDate('checked_at', today())
             ->exists();
@@ -52,5 +60,13 @@ class HabitController extends Controller
         }
 
         return redirect()->route('habits.index');
+    }
+
+    public function streak()
+    {
+        return $this->checkins()
+            ->orderBy('checked_at','desc')
+            ->get()
+            ->count();
     }
 }

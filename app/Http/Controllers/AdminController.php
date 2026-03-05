@@ -3,36 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Habit;
 
 class AdminController extends Controller
 {
     public function dashboard()
     {
-        if (session('role') != 'admin') {
-            return redirect('/login');
-        }
+        $totalUsers = User::count();
+        $totalHabits = Habit::count();
 
-        $totalUsers = 10;
-        $totalHabits = 25;
-
-        return view('admin.dashboard', [
-            'totalUsers' => $totalUsers,
-            'totalHabits' => $totalHabits
-        ]);
+        return view('admin.dashboard', compact('totalUsers','totalHabits'));
     }
 
     public function users()
     {
-        if (session('role') != 'admin') {
-            return redirect('/login');
-        }
+        $users = User::latest()->get();
 
-        $users = [
-            'John',
-            'Sarah',
-            'Michael'
-        ];
-
-        return view('admin.users', ['users' => $users]);
+        return view('admin.users', compact('users'));
     }
 }

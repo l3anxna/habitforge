@@ -9,23 +9,27 @@ class DashboardController extends Controller
         $user = auth()->user();
 
         $habits = $user->habits()
-            ->with('checkins')
-            ->get();
+        ->with(['checkins' => function ($query) {
+            $query->whereDate('checked_at', today());
+        }])
+        ->get();
 
         $totalHabits = $habits->count();
 
-        $totalCheckins = $habits->sum(function ($habit) {
-            return $habit->checkins->count();
+        $todayCheckins = $habits->sum(function ($habit) {
+            return $habit->checkins
+                ->where('checked_at', today())
+                ->count();
         });
-
+        
         $completionRate = $totalHabits > 0
-            ? round(($totalCheckins / $totalHabits) * 100)
+            ? round(($todayCheckins / $totalHabits) * 100)
             : 0;
 
         return view('user.dashboard', compact(
             'habits',
             'totalHabits',
-            'totalCheckins',
+            'todayCheckins',
             'completionRate'
         ));
     }
