@@ -1,12 +1,10 @@
 @extends('layouts.app')
 
 @section('title')
-License
+    License
 @endsection
 
 @section('content')
-
-<h1>License</h1>
-<p>This project is for educational purposes.</p>
-
+    <h1>License</h1>
+    <p>This project is for educational purposes.</p>
 @endsection

@@ -4,33 +4,42 @@
 
 @section('content')
 
-<h1>My Habits</h1>
+    <h1>My Habits</h1>
 
-<a href="{{ route('habits.create') }}">Create New Habit</a>
+    <a href="{{ route('habits.create') }}" class="btn">
+        + Create Habit
+    </a>
 
-<hr>
+    <br><br>
 
-<ul>
-@forelse($habits as $habit)
-    <li>
-        <strong>{{ $habit->name }}</strong>
+    @forelse($habits as $habit)
+        <div class="card">
 
-        <a href="{{ route('habits.show', $habit->id) }}">View</a>
-        <a href="{{ route('habits.edit', $habit->id) }}">Edit</a>
+            <h3>{{ $habit->name }}</h3>
 
-        <form method="POST"
-              action="{{ route('habits.destroy', $habit->id) }}"
-              style="display:inline;">
-            @csrf
-            @method('DELETE')
-            <button type="submit" onclick="return confirm('Delete this habit?')">
-            Delete
-            </button>
-        </form>
-    </li>
-@empty
-    <p>No habits created yet.</p>
-@endforelse
-</ul>
+            <a href="{{ route('habits.show', $habit->id) }}">View</a>
+
+            <a href="{{ route('habits.edit', $habit->id) }}" style="margin-left:10px;">
+                Edit
+            </a>
+
+            <form method="POST" action="{{ route('habits.destroy', $habit->id) }}" style="display:inline;">
+                @csrf
+                @method('DELETE')
+
+                <button class="btn-danger">
+                    Delete
+                </button>
+
+            </form>
+
+        </div>
+
+    @empty
+
+        <div class="card">
+            <p>No habits created yet.</p>
+        </div>
+    @endforelse
 
 @endsection

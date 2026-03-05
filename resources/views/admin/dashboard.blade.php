@@ -1,21 +1,27 @@
 @extends('layouts.app')
 
-@section('title')
-Admin Dashboard
-@endsection
+@section('title', 'Admin Dashboard')
 
 @section('content')
 
-<h1>Admin Dashboard</h1>
+    <h1>Admin Dashboard</h1>
 
-<div>
-    <h3>Total Users</h3>
-    <p>{{ $totalUsers }}</p>
-</div>
+    <div style="display:flex; gap:20px;">
 
-<div>
-    <h3>Total Habits</h3>
-    <p>{{ $totalHabits }}</p>
-</div>
+        <div class="card">
+            <h3>Total Users</h3>
+            <p style="font-size:28px;">
+                {{ $totalUsers }}
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Total Habits</h3>
+            <p style="font-size:28px;">
+                {{ $totalHabits }}
+            </p>
+        </div>
+
+    </div>
 
 @endsection

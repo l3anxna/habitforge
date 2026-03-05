@@ -4,32 +4,26 @@
 
 @section('content')
 
-<h1>Create Habit</h1>
+    <h1>Create New Habit</h1>
 
-@if ($errors->any())
-    <div style="color:red;">
-        @foreach ($errors->all() as $error)
-            <p>{{ $error }}</p>
-        @endforeach
+    <div class="card">
+
+        <form method="POST" action="{{ route('habits.store') }}">
+            @csrf
+
+            <label>Habit Name</label>
+            <br><br>
+
+            <input type="text" name="name" value="{{ old('name') }}" placeholder="Example: Drink Water" required>
+
+            <br><br>
+
+            <button class="btn">
+                Create Habit
+            </button>
+
+        </form>
+
     </div>
-@endif
-
-<form method="POST" action="{{ route('habits.store') }}">
-    @csrf
-
-    <label>Habit Name:</label>
-
-    <input
-    type="text"
-    name="name"
-    value="{{ old('name') }}"
-    required
-    placeholder="Example: Drink Water"
-    >
-
-    <br><br>
-
-    <button type="submit">Create</button>
-</form>
 
 @endsection
