@@ -10,7 +10,7 @@ Manage Users
 
 <ul>
     @foreach($users as $user)
-        <li>{{ $user }}</li>
+        <li>{{ $user->name }} ({{ $user->email }})</li>
     @endforeach
 </ul>
 

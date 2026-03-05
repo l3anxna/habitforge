@@ -8,7 +8,14 @@ Admin Dashboard
 
 <h1>Admin Dashboard</h1>
 
-<p>Total Users: {{ $totalUsers }}</p>
-<p>Total Habits: {{ $totalHabits }}</p>
+<div>
+    <h3>Total Users</h3>
+    <p>{{ $totalUsers }}</p>
+</div>
+
+<div>
+    <h3>Total Habits</h3>
+    <p>{{ $totalHabits }}</p>
+</div>
 
 @endsection

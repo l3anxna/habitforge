@@ -1,18 +1,24 @@
-<html>
+<!DOCTYPE html>
+<html lang="{{ str_replace('_','-',app()->getLocale()) }}">
+
 <head>
-    <title>@yield('title')</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@yield('title') | HabitForge</title>
 </head>
+
 <body>
 
-    @include('partials.navbar')
+@include('partials.navbar')
 
-    <hr>
+<hr>
 
-    <div>
-        @yield('content')
-    </div>
+<div class="container">
+    @yield('content')
+</div>
 
-    @include('partials.footer')
+@include('partials.footer')
 
 </body>
 </html>

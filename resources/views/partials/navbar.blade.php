@@ -21,6 +21,14 @@
                     Logout
                 </button>
             </form>
+
+            <a href="{{ route('dashboard') }}">Dashboard</a>
+
+            @if(auth()->user()->role === 'admin')
+                <a href="{{ route('admin.dashboard') }}">Admin</a>
+            @endif
+
+            <a href="{{ route('habits.index') }}">My Habits</a>
         @endauth
 
         @guest

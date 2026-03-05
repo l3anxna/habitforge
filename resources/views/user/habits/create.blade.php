@@ -18,7 +18,16 @@
     @csrf
 
     <label>Habit Name:</label>
-    <input type="text" name="name" value="{{ old('name') }}" required>
+
+    <input
+    type="text"
+    name="name"
+    value="{{ old('name') }}"
+    required
+    placeholder="Example: Drink Water"
+    >
+
+    <br><br>
 
     <button type="submit">Create</button>
 </form>

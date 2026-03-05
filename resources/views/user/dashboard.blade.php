@@ -13,26 +13,34 @@ User Dashboard
 <h2>Today's Habits</h2>
 
 <ul>
-    @foreach($habits as $habit)
-        <li>
-            <strong>{{ $habit['name'] }}</strong>
-            <br>
-            Streak: {{ $habit['streak'] }} days
-            <br>
-            Status:
-            @if($habit['completed'])
-                Completed ✅
-            @else
-                Not Completed ❌
+@foreach($habits as $habit)
 
-                <form method="POST" action="{{ route('habits.checkin', $habit['name']) }}">
-                    @csrf
-                    <button type="submit">Daily Check-in</button>
-                </form>
-            @endif
-            <br><br>
-        </li>
-    @endforeach
+    <li>
+        <strong>{{ $habit->name }}</strong>
+    <br>
+        Streak: {{ $habit->checkins->count() }} days
+    <br>
+
+    @if($habit->checkins->where('checked_at', today())->count())
+
+        Completed ✅
+
+    @else
+
+        Not Completed ❌
+
+    <form method="POST" action="{{ route('habits.checkin', $habit->id) }}">
+    @csrf
+        <button type="submit">Daily Check-in</button>
+        </form>
+
+@endif
+
+<br><br>
+
+</li>
+
+@endforeach
 </ul>
 
 <a href="/">Back Home</a>

@@ -23,7 +23,9 @@
               style="display:inline;">
             @csrf
             @method('DELETE')
-            <button type="submit">Delete</button>
+            <button type="submit" onclick="return confirm('Delete this habit?')">
+            Delete
+            </button>
         </form>
     </li>
 @empty
