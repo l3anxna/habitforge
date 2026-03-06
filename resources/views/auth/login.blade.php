@@ -1,50 +1,29 @@
 @extends('layouts.app')
 
-@section('title', 'Login')
-
 @section('content')
+    <div class="flex justify-center items-center min-h-screen bg-gray-50">
 
-    <h1>Login</h1>
+        <div class="bg-white p-10 rounded-xl shadow w-96">
 
-    <div class="card">
-
-        @if ($errors->any())
-            <div style="color:red;">
-                @foreach ($errors->all() as $error)
-                    <p>{{ $error }}</p>
-                @endforeach
-            </div>
-        @endif
-
-        <form method="POST" action="{{ route('login.submit') }}">
-            @csrf
-
-            <label>Email</label>
-            <br><br>
-
-            <input type="email" name="email" value="{{ old('email') }}" required>
-
-            <br><br>
-
-            <label>Password</label>
-            <br><br>
-
-            <input type="password" name="password" required>
-
-            <br><br>
-
-            <button class="btn-dark">
+            <h2 class="text-2xl font-bold mb-6 text-center">
                 Login
-            </button>
+            </h2>
 
-        </form>
+            <form method="POST" action="/login">
+                @csrf
 
-        <br>
+                <input type="email" name="email" placeholder="Email" class="w-full border rounded-lg px-4 py-2 mb-4">
 
-        <a href="{{ route('register') }}">
-            Create an account
-        </a>
+                <input type="password" name="password" placeholder="Password"
+                    class="w-full border rounded-lg px-4 py-2 mb-6">
+
+                <button class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700">
+                    Login
+                </button>
+
+            </form>
+
+        </div>
 
     </div>
-
 @endsection
