@@ -1,48 +1,33 @@
 @extends('layouts.app')
 
-@section('title', 'Welcome')
-
 @section('content')
-    <div
-        style="
-    background:#f4f6f9;
-    height:80vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    font-family:Arial, sans-serif;
-">
+    <div class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
 
-        <h1 style="font-size:42px; margin-bottom:10px;">
-            Welcome to HabitForge
-        </h1>
+        <div class="max-w-6xl mx-auto px-6 py-24 text-center">
 
-        <p style="font-size:18px; margin-bottom:30px; color:#555;">
-            Build better habits. Track your progress. Stay consistent.
-        </p>
+            <h1 class="text-5xl font-bold mb-6">
+                Build Better Habits 🔥
+            </h1>
 
-        @guest
-            <div>
-                <a href="{{ route('register') }}"
-                    style="margin-right:15px; padding:10px 20px; background:#4CAF50; color:white; text-decoration:none; border-radius:6px;">
-                    Get Started
+            <p class="text-xl mb-8 opacity-90">
+                Track your daily habits, build streaks, and improve yourself every day.
+            </p>
+
+            <div class="flex justify-center gap-4">
+
+                <a href="/register"
+                    class="bg-white text-indigo-600 px-6 py-3 rounded-xl font-semibold hover:scale-105 transition">
+                    Start Building Habits
                 </a>
 
-                <a href="{{ route('login') }}"
-                    style="padding:10px 20px; background:#333; color:white; text-decoration:none; border-radius:6px;">
-                    Login
+                <a href="/about"
+                    class="border border-white px-6 py-3 rounded-xl hover:bg-white hover:text-indigo-600 transition">
+                    Learn More
                 </a>
+
             </div>
-        @endguest
 
-        @auth
-            <a href="{{ route('dashboard') }}"
-                style="padding:12px 24px; background:#4CAF50; color:white; text-decoration:none; border-radius:6px; margin-top:20px;">
-                Go to Dashboard
-            </a>
-        @endauth
+        </div>
 
     </div>
 @endsection
