@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<script src="https://cdn.tailwindcss.com"></script>
 
 <head>
     <meta charset="UTF-8">
