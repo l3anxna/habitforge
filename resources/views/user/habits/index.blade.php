@@ -1,43 +1,60 @@
 @extends('layouts.app')
 
-@section('title', 'My Habits')
-
 @section('content')
+    <div class="max-w-5xl mx-auto px-6 py-10">
 
-    <h1>My Habits</h1>
+        <div class="flex justify-between items-center mb-8">
 
-    <a href="{{ route('habits.create') }}" class="btn">
-        + Create Habit
-    </a>
+            <h1 class="text-3xl font-bold">
+                My Habits
+            </h1>
 
-    <br><br>
-
-    @forelse($habits as $habit)
-        <div class="card">
-
-            <h3>{{ $habit->name }}</h3>
-
-            <a href="{{ route('habits.edit', $habit->id) }}" style="margin-left:10px;">
-                Edit
+            <a href="/habits/create" class="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 transition">
+                + Create Habit
             </a>
 
-            <form method="POST" action="{{ route('habits.destroy', $habit->id) }}" style="display:inline;">
-                @csrf
-                @method('DELETE')
+        </div>
 
-                <button class="btn-danger">
-                    Delete
-                </button>
+        <div class="grid md:grid-cols-2 gap-6">
 
-            </form>
+            @foreach ($habits as $habit)
+                <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+
+                    <div class="flex justify-between items-center mb-4">
+
+                        <h2 class="text-xl font-semibold">
+                            {{ $habit->name }}
+                        </h2>
+
+                        <span class="text-sm text-orange-500 font-medium">
+                            🔥 Streak
+                        </span>
+
+                    </div>
+
+                    <div class="flex gap-3">
+
+                        <a href="/habits/{{ $habit->id }}/edit"
+                            class="px-3 py-1 bg-yellow-400 text-white rounded hover:bg-yellow-500 text-sm">
+                            Edit
+                        </a>
+
+                        <form method="POST" action="/habits/{{ $habit->id }}">
+                            @csrf
+                            @method('DELETE')
+
+                            <button class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm">
+                                Delete
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+            @endforeach
 
         </div>
 
-    @empty
-
-        <div class="card">
-            <p>No habits created yet.</p>
-        </div>
-    @endforelse
-
+    </div>
 @endsection
