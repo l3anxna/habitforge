@@ -11,17 +11,17 @@
 
             <div class="bg-white p-6 rounded-xl shadow">
                 <h3 class="text-gray-500">Users</h3>
-                <p class="text-3xl font-bold">{{ $users->count() }}</p>
+                <p class="text-3xl font-bold">{{ $totalUsers }}</p>
             </div>
 
             <div class="bg-white p-6 rounded-xl shadow">
                 <h3 class="text-gray-500">Habits</h3>
-                <p class="text-3xl font-bold">{{ $habits->count() }}</p>
+                <p class="text-3xl font-bold">{{ $totalHabits }}</p>
             </div>
 
             <div class="bg-white p-6 rounded-xl shadow">
                 <h3 class="text-gray-500">Checkins</h3>
-                <p class="text-3xl font-bold">{{ $checkins->count() }}</p>
+                <p class="text-3xl font-bold">{{ $totalCheckins }}</p>
             </div>
 
         </div>

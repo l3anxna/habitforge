@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Habit;
+use App\Models\Checkin;
 
 class AdminController extends Controller
 {
@@ -12,8 +13,13 @@ class AdminController extends Controller
     {
         $totalUsers = User::count();
         $totalHabits = Habit::count();
+        $totalCheckins = Checkin::count();
 
-        return view('admin.dashboard', compact('totalUsers','totalHabits'));
+        return view('admin.dashboard', compact(
+            'totalUsers',
+            'totalHabits',
+            'totalCheckins'
+        ));
     }
 
     public function users()

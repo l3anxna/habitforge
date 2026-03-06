@@ -8,13 +8,29 @@
             </a>
 
             @auth
-                <a href="/dashboard" class="text-gray-600 hover:text-indigo-600 font-medium">
-                    Dashboard
-                </a>
 
-                <a href="/habits" class="text-gray-600 hover:text-indigo-600 font-medium">
-                    My Habits
-                </a>
+                @if(auth()->user()->isAdmin())
+
+                    <a href="{{ route('admin.dashboard') }}" class="text-gray-600 hover:text-indigo-600 font-medium">
+                        Admin Dashboard
+                    </a>
+
+                    <a href="{{ route('admin.users') }}" class="text-gray-600 hover:text-indigo-600 font-medium">
+                        Manage Users
+                    </a>
+
+                @else
+
+                    <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-indigo-600 font-medium">
+                        Dashboard
+                    </a>
+
+                    <a href="{{ route('habits.index') }}" class="text-gray-600 hover:text-indigo-600 font-medium">
+                        My Habits
+                    </a>
+
+                @endif
+
             @endauth
 
         </div>
