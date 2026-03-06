@@ -20,4 +20,9 @@ class Habit extends Model
     {
         return $this->hasMany(Checkin::class);
     }
+
+    public function streak()
+    {
+        return $this->checkins()->count();
+    }
 }

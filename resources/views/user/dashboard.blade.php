@@ -1,37 +1,80 @@
 @extends('layouts.app')
 
-@section('title')
-    Dashboard
-@endsection
-
 @section('content')
-    <h1>Dashboard</h1>
+    <div class="max-w-6xl mx-auto px-6 py-10">
 
-    <div class="card">
-        <h3>Overall Completion</h3>
-        <p style="font-size:24px;">{{ $completionRate }}%</p>
-    </div>
+        <h1 class="text-3xl font-bold mb-8">
+            Dashboard
+        </h1>
 
-    <h2>Today's Habits</h2>
+        {{-- Stats --}}
+        <div class="grid md:grid-cols-3 gap-6 mb-10">
 
-    @foreach ($habits as $habit)
-        <div class="card">
+            <div class="bg-white p-6 rounded-xl shadow">
+                <h3 class="text-gray-500">Total Habits</h3>
+                <p class="text-3xl font-bold">
+                    {{ $totalHabits }}
+                </p>
+            </div>
 
-            <h3>{{ $habit->name }}</h3>
+            <div class="bg-white p-6 rounded-xl shadow">
+                <h3 class="text-gray-500">Completed Today</h3>
+                <p class="text-3xl font-bold text-green-600">
+                    {{ $todayCheckins }}
+                </p>
+            </div>
 
-            <p>🔥 Streak: {{ $habit->checkins->count() }} days</p>
-
-            @if ($habit->checkins->where('checked_at', today())->count())
-                <p style="color:green;">Completed Today ✅</p>
-            @else
-                <p style="color:#e74c3c;">Not Completed</p>
-
-                <form method="POST" action="{{ route('habits.checkin', $habit->id) }}">
-                    @csrf
-                    <button class="btn">Daily Check-in</button>
-                </form>
-            @endif
+            <div class="bg-white p-6 rounded-xl shadow">
+                <h3 class="text-gray-500">Completion Rate</h3>
+                <p class="text-3xl font-bold text-indigo-600">
+                    {{ $completionRate }}%
+                </p>
+            </div>
 
         </div>
-    @endforeach
+
+
+        {{-- Habit Checkin List --}}
+        <h2 class="text-2xl font-bold mb-6">
+            Today's Habits
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+
+            @foreach ($habits as $habit)
+                <div class="bg-white p-6 rounded-xl shadow flex justify-between items-center">
+
+                    <div>
+
+                        <h3 class="text-lg font-semibold">
+                            {{ $habit->name }}
+                        </h3>
+
+                        <p class="text-sm text-orange-500">
+                            🔥 {{ $habit->streak() }} day streak
+                        </p>
+
+                    </div>
+
+                    @if ($habit->checkins->count())
+                        <span class="text-green-600 font-semibold">
+                            ✔ Completed
+                        </span>
+                    @else
+                        <form method="POST" action="{{ route('habits.checkin', $habit->id) }}">
+                            @csrf
+
+                            <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
+                                Check-in
+                            </button>
+
+                        </form>
+                    @endif
+
+                </div>
+            @endforeach
+
+        </div>
+
+    </div>
 @endsection

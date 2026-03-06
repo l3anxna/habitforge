@@ -86,14 +86,7 @@ class HabitController extends Controller
             ]);
         }
 
-        return redirect()->route('habits.index');
+        return redirect()->route('dashboard');
     }
 
-    public function streak()
-    {
-        return $this->checkins()
-            ->orderBy('checked_at','desc')
-            ->get()
-            ->count();
-    }
 }

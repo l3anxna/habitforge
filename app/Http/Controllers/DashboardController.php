@@ -9,19 +9,17 @@ class DashboardController extends Controller
         $user = auth()->user();
 
         $habits = $user->habits()
-        ->with(['checkins' => function ($query) {
-            $query->whereDate('checked_at', today());
-        }])
-        ->get();
+            ->with(['checkins' => function ($query) {
+                $query->whereDate('checked_at', today());
+            }])
+            ->get();
 
         $totalHabits = $habits->count();
 
         $todayCheckins = $habits->sum(function ($habit) {
-            return $habit->checkins
-                ->where('checked_at', today())
-                ->count();
+            return $habit->checkins->count();
         });
-        
+
         $completionRate = $totalHabits > 0
             ? round(($todayCheckins / $totalHabits) * 100)
             : 0;
