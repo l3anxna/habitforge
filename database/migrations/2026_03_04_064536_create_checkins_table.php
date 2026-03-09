@@ -6,22 +6,28 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('checkins', function (Blueprint $table) {
+
             $table->id();
-            $table->foreignId('habit_id')->constrained()->onDelete('cascade');
+
+            $table->foreignId('habit_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
             $table->date('checked_at');
+
             $table->timestamps();
+
+            // Prevent duplicate check-ins per day
+            $table->unique(['habit_id', 'checked_at']);
+
+            // Performance indexes
+            $table->index(['habit_id', 'checked_at']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('checkins');

@@ -6,24 +6,39 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('habits', function (Blueprint $table) {
+
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
+            $table->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
             $table->string('name');
+
+            $table->text('description')->nullable();
+
+            $table->enum('frequency', [
+                'daily',
+                'weekly'
+            ])->default('daily');
+
+            $table->integer('target')->default(1);
+
+            $table->time('reminder_at')->nullable();
+
             $table->timestamps();
 
+            // Prevent duplicate habit names per user
             $table->unique(['user_id', 'name']);
+
+            // Performance index
+            $table->index('user_id');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('habits');
