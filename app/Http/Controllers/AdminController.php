@@ -39,4 +39,17 @@ class AdminController extends Controller
 
         return back()->with('success', 'User deleted successfully.');
     }
+
+    public function updateRole(User $user)
+    {
+        if ($user->id === auth()->id()) {
+            return back()->with('error','You cannot change your own role.');
+        }
+
+        $user->role = $user->role === 'admin' ? 'user' : 'admin';
+
+        $user->save();
+
+        return back()->with('success','User role updated.');
+    }
 }
