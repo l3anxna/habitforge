@@ -9,7 +9,14 @@ class Checkin extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['habit_id', 'checked_at'];
+    protected $fillable = [
+        'habit_id',
+        'checked_at'
+    ];
+
+    protected $casts = [
+        'checked_at' => 'date'
+    ];
 
     public function habit()
     {
