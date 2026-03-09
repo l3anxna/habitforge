@@ -52,4 +52,11 @@ class AdminController extends Controller
 
         return back()->with('success','User role updated.');
     }
+
+    public function userHabits(User $user)
+    {
+        $habits = $user->habits()->withCount('checkins')->get();
+
+        return view('admin.userHabits', compact('user','habits'));
+    }
 }

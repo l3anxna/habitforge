@@ -68,11 +68,19 @@
                                     title="{{ $user->role === 'admin' ? 'Demote User' : 'Promote User' }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                         class="size-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="{{ $user->role === 'admin' ? 'M10 2a.75.75 0 0 1 .75.75v12.59l1.95-2.1a.75.75 0 1 1 1.1 1.02l-3.25 3.5a.75.75 0 0 1-1.1 0l-3.25-3.5a.75.75 0 1 1 1.1-1.02l1.95 2.1V2.75A.75.75 0 0 1 10 2Z' : 'M10 18a.75.75 0 0 1-.75-.75V4.66L7.3 6.76a.75.75 0 0 1-1.1-1.02l3.25-3.5a.75.75 0 0 1 1.1 0l3.25 3.5a.75.75 0 1 1-1.1 1.02l-1.95-2.1v12.59A.75.75 0 0 1 10 18Z' }}" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="{{ $user->role === 'admin' ? 'M10 2a.75.75 0 0 1 .75.75v12.59l1.95-2.1a.75.75 0 1 1 1.1 1.02l-3.25 3.5a.75.75 0 0 1-1.1 0l-3.25-3.5a.75.75 0 1 1 1.1-1.02l1.95 2.1V2.75A.75.75 0 0 1 10 2Z' : 'M10 18a.75.75 0 0 1-.75-.75V4.66L7.3 6.76a.75.75 0 0 1-1.1-1.02l3.25-3.5a.75.75 0 0 1 1.1 0l3.25 3.5a.75.75 0 1 1-1.1 1.02l-1.95-2.1v12.59A.75.75 0 0 1 10 18Z' }}" />
                                     </svg>
 
                                     {{ $user->role === 'admin' ? 'Demote' : 'Promote' }}
                                 </button>
+                            </form>
+
+                            <form>
+                                <a href="{{ route('admin.users.habits', $user->id) }}"
+                                    class="bg-gray-500 text-white px-3 py-1 rounded">
+                                    Details
+                                </a>
                             </form>
                         </div>
                     </td>

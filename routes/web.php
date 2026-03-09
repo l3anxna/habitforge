@@ -41,7 +41,8 @@ Route::middleware('auth')->group(function () {
 Route::prefix('admin')->middleware(['auth','admin'])->group(function () {
     Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
     Route::get('/users',[AdminController::class,'users'])->name('admin.users');
-    
+
     Route::delete('/users/{user}',[AdminController::class,'destroy'])->name('admin.users.destroy');
     Route::patch('/users/{user}/role',[AdminController::class,'updateRole'])->name('admin.users.role');
+    Route::get('/users/{user}/habits',[AdminController::class,'userHabits'])->name('admin.users.habits');
 });
