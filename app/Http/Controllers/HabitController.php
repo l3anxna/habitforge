@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Habit;
 use Illuminate\Http\Request;
+use App\Http\Requests\HabitRequest;
 
 class HabitController extends Controller
 {
@@ -19,14 +20,10 @@ class HabitController extends Controller
         return view('user.habits.create');
     }
 
-    public function store(Request $request)
+    public function store(HabitRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:50'
-        ]);
-
         auth()->user()->habits()->create([
-            'name' => $request->string('name')
+            'name' => $request->validated()['name']
         ]);
 
         return redirect()->route('habits.index');
@@ -35,25 +32,17 @@ class HabitController extends Controller
 
     public function edit(Habit $habit)
     {
-        if ($habit->user_id !== auth()->id()) {
-            abort(403);
-        }
+        $this->authorize('update', $habit);
 
         return view('user.habits.edit', compact('habit'));
     }
 
-    public function update(Request $request, Habit $habit)
+    public function update(HabitRequest $request, Habit $habit)
     {
-        if ($habit->user_id !== auth()->id()) {
-            abort(403);
-        }
-
-        $request->validate([
-            'name' => 'required|string|max:50'
-        ]);
+        $this->authorize('update', $habit);
 
         $habit->update([
-            'name' => $request->name
+            'name' => $request->validated()['name']
         ]);
 
         return redirect()->route('habits.index');
@@ -61,9 +50,7 @@ class HabitController extends Controller
 
     public function destroy(Habit $habit)
     {
-        if ($habit->user_id !== auth()->id()) {
-            abort(403);
-        }
+        $this->authorize('delete', $habit);
 
         $habit->delete();
 
@@ -72,9 +59,7 @@ class HabitController extends Controller
 
     public function checkin(Habit $habit)
     {
-        if ($habit->user_id !== auth()->id()) {
-            abort(403);
-        }
+        $this->authorize('checkin', $habit);
 
         $alreadyChecked = $habit->checkins()
             ->whereDate('checked_at', today())
