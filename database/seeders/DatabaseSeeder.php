@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Habit;
 use App\Models\Checkin;
+use App\Models\Badge;
 use Carbon\Carbon;
 use Database\Factories\CheckinFactory;
 
@@ -84,6 +85,22 @@ class DatabaseSeeder extends Seeder
         for ($d = 0; $d < 2; $d++) {
             $date = Carbon::today()->subDays($d)->toDateString();
             $this->createCheckinIfNotExists($habit2, $date);
+        }
+
+        // Seed some example badges for the test user so the dashboard shows them
+        if (!Badge::where('habit_id', $habit7->id)->where('type', '7-day')->exists()) {
+            Badge::create(['habit_id' => $habit7->id, 'type' => '7-day']);
+        }
+
+        if (!Badge::where('habit_id', $habit30->id)->where('type', '7-day')->exists()) {
+            Badge::create(['habit_id' => $habit30->id, 'type' => '7-day']);
+        }
+        if (!Badge::where('habit_id', $habit30->id)->where('type', '30-day')->exists()) {
+            Badge::create(['habit_id' => $habit30->id, 'type' => '30-day']);
+        }
+
+        if (!Badge::where('habit_id', $habitLong->id)->where('type', '90-day')->exists()) {
+            Badge::create(['habit_id' => $habitLong->id, 'type' => '90-day']);
         }
     }
 
