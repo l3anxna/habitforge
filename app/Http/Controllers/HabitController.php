@@ -69,6 +69,17 @@ class HabitController extends Controller
             $habit->checkins()->create([
                 'checked_at' => today()
             ]);
+
+            // Award badges for achieved streak thresholds
+            $awarded = $habit->awardBadges();
+
+            if (!empty($awarded)) {
+                // flash awarded badges and habit name to session for UI notification
+                return redirect()->route('dashboard')->with('badges_awarded', [
+                    'habit' => $habit->name,
+                    'types' => $awarded,
+                ]);
+            }
         }
 
         return redirect()->route('dashboard');

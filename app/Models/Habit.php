@@ -21,6 +21,11 @@ class Habit extends Model
         return $this->hasMany(Checkin::class);
     }
 
+    public function badges()
+    {
+        return $this->hasMany(Badge::class);
+    }
+
     public function streak()
     {
         $dates = $this->checkins()
@@ -41,5 +46,36 @@ class Habit extends Model
         }
 
         return $streak;
+    }
+
+    /**
+     * Award badges based on configured streak thresholds.
+     * Creates a Badge record for this habit when a threshold is reached.
+     * Returns an array of newly awarded badge types.
+     */
+    public function awardBadges(): array
+    {
+        $thresholds = [
+            7 => '7-day',
+            30 => '30-day',
+            90 => '90-day',
+            365 => '365-day',
+        ];
+
+        $streak = $this->streak();
+
+        $awarded = [];
+
+        foreach ($thresholds as $days => $type) {
+            if ($streak >= $days) {
+                // create badge if not already awarded
+                if (!$this->badges()->where('type', $type)->exists()) {
+                    $this->badges()->create(['type' => $type]);
+                    $awarded[] = $type;
+                }
+            }
+        }
+
+        return $awarded;
     }
 }
