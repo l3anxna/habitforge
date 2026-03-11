@@ -24,6 +24,8 @@ class AdminController extends Controller
 
     public function users()
     {
+        $this->authorize('viewAny', User::class);
+
         $users = User::latest()->get();
 
         return view('admin.users', compact('users'));
@@ -31,9 +33,7 @@ class AdminController extends Controller
 
     public function destroy(User $user)
     {
-        if ($user->id === auth()->id()) {
-            return back()->with('error', 'You cannot delete your own account.');
-        }
+        $this->authorize('delete', $user);
 
         $user->delete();
 
@@ -42,9 +42,7 @@ class AdminController extends Controller
 
     public function updateRole(User $user)
     {
-        if ($user->id === auth()->id()) {
-            return back()->with('error','You cannot change your own role.');
-        }
+        $this->authorize('updateRole', $user);
 
         $user->role = $user->role === 'admin' ? 'user' : 'admin';
 
@@ -55,6 +53,8 @@ class AdminController extends Controller
 
     public function userHabits(User $user)
     {
+        $this->authorize('view', $user);
+
         $habits = $user->habits()->withCount('checkins')->get();
 
         return view('admin.userHabits', compact('user','habits'));
