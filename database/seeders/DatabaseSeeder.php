@@ -21,7 +21,21 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('password'),
+            'role' => 'user',
         ]);
+
+        $admin = User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('password'),
+            'role' => 'admin',
+        ]);
+
+        $habit1 = Habit::factory()->for($admin)->create(['name' => 'Daily Journal']);
+        $habit2 = Habit::factory()->for($admin)->create(['name' => 'Morning Run']);
+
+        Checkin::factory()->for($habit1)->count(3)->create();
+        Checkin::factory()->for($habit2)->count(2)->create();
     }
 }
