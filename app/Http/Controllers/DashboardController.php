@@ -11,7 +11,7 @@ class DashboardController extends Controller
         $habits = $user->habits()
             ->with(['checkins' => function ($query) {
                 $query->whereDate('checked_at', today());
-            }])
+            }, 'badges'])
             ->get();
 
         $totalHabits = $habits->count();
